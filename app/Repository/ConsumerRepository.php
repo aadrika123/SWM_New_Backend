@@ -2148,7 +2148,7 @@ class ConsumerRepository
         {   
             
             $conArr = array();
-            if(isset($request->wardNo) || isset($request->consumerCategory) || isset($request->consumerType) || isset($request->ulbId))
+            if(isset($request->wardNo) || isset($request->consumerCategory) || isset($request->consumerType) || isset($request->ulbId) ||isset($request->mobileNo)|| isset($request->consumerName))
             {
                 
                 $consumerList = $this->Consumer->join('tbl_consumer_category', 'tbl_consumer.consumer_category_id', '=', 'tbl_consumer_category.id')
@@ -2163,6 +2163,13 @@ class ConsumerRepository
                 
                 if(isset($request->consumerType))               
                     $consumerList = $consumerList->where('tbl_consumer.consumer_type_id', $request->consumerType);
+                
+                if (isset($request->mobileNo))
+                    $consumerList = $consumerList->where('swm_consumers.mobile_no', $request->mobileNo);
+
+                if (isset($request->consumerName))
+                    $consumerList = $consumerList->where('swm_consumers.name', 'like', '%' . $request->consumerName . '%');
+
                 
                 
                 
